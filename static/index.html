@@ -5,51 +5,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Task Manager</title>
+    <title>My Task Notebook</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="container">
+    <main class="notebook" aria-labelledby="page-title">
+        <header class="notebook-header">
+            <div>
+                <p class="eyebrow">Daily notes</p>
+                <h1 id="page-title">My task notebook</h1>
+                <p class="subtitle">A small place for the things worth remembering.</p>
+            </div>
+            <div class="page-number" aria-hidden="true">01</div>
+        </header>
 
-        <h1>Task Manager</h1>
+        <section class="form" aria-labelledby="new-task-title">
+            <p class="section-label" id="new-task-title">New entry</p>
+            <div class="form-fields">
+                <input type="text" id="title" placeholder="What needs doing?" aria-label="Task title">
+                <input type="text" id="description" placeholder="A little context (optional)" aria-label="Task description">
+                <button onclick="addTask()" type="button">Add to list <span aria-hidden="true">+</span></button>
+            </div>
+        </section>
 
-        <p class="subtitle">
-            HTML + CSS + JavaScript + FastAPI
-        </p>
+        <section aria-labelledby="tasks-title">
+            <div class="tasks-heading">
+                <h2 id="tasks-title">Today&apos;s list</h2>
+                <span class="rule" aria-hidden="true"></span>
+            </div>
+            <div id="taskList"></div>
+        </section>
 
-        <!-- Add Task -->
-
-        <div class="form">
-
-            <input
-                type="text"
-                id="title"
-                placeholder="Task title"
-            >
-
-            <input
-                type="text"
-                id="description"
-                placeholder="Task description"
-            >
-
-            <button onclick="addTask()">
-                Add Task
-            </button>
-
-        </div>
-
-
-        <!-- Task List -->
-
-        <h2>My Tasks</h2>
-
-        <div id="taskList"></div>
-
-    </div>
+        <footer class="notebook-footer">Keep it simple. Keep moving.</footer>
+    </main>
 
     <script src="script.js"></script>
 
