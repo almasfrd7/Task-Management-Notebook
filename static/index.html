@@ -7,12 +7,22 @@
 
     <title>My Task Notebook</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Lora:ital,wght@0,400..600;1,400..600&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
     <main class="notebook" aria-labelledby="page-title">
+
+        <div class="sticky-note" id="motivationNote" aria-hidden="true">
+            <span class="sticky-note-tape"></span>
+            <span class="sticky-note-text" id="motivationText">Keep going.</span>
+        </div>
+
         <header class="notebook-header">
             <div>
                 <p class="eyebrow">Daily notes</p>
@@ -24,21 +34,46 @@
 
         <section class="form" aria-labelledby="new-task-title">
             <p class="section-label" id="new-task-title">New entry</p>
+
             <div class="form-fields">
-                <input type="text" id="title" placeholder="What needs doing?" aria-label="Task title">
-                <input type="text" id="description" placeholder="A little context (optional)" aria-label="Task description">
-                <input type="date" id="dueDate" aria-label="Due date">
-                <input type="time" id="dueTime" aria-label="Due time">
-                <button onclick="addTask()" type="button">Add to list <span aria-hidden="true">+</span></button>
+
+                <div class="field field-title">
+                    <label for="title">What needs doing?</label>
+                    <input type="text" id="title" placeholder="e.g. Finish the client proposal" aria-label="Task title">
+                </div>
+
+                <div class="field field-description">
+                    <label for="description">A little context</label>
+                    <input type="text" id="description" placeholder="Optional details, notes to self..." aria-label="Task description">
+                </div>
+
+                <div class="field field-date">
+                    <label for="dueDate">Due date</label>
+                    <input type="date" id="dueDate" aria-label="Due date">
+                </div>
+
+                <div class="field field-time">
+                    <label for="dueTime">Due time</label>
+                    <input type="time" id="dueTime" aria-label="Due time">
+                </div>
+
+                <button class="add-btn" id="addBtn" onclick="addTask()" type="button">
+                    <span>Add to list</span>
+                    <span class="add-icon" aria-hidden="true">+</span>
+                </button>
+
             </div>
         </section>
 
         <section aria-labelledby="tasks-title">
             <div class="tasks-heading">
-                <h2 id="tasks-title">Today&apos;s list</h2>
+                <div class="tasks-heading-left">
+                    <h2 id="tasks-title">Today&apos;s list</h2>
+                    <span class="task-summary" id="taskSummary"></span>
+                </div>
                 <span class="rule" aria-hidden="true"></span>
             </div>
-            <div id="taskList"></div>
+            <div id="taskList" aria-live="polite"></div>
         </section>
 
         <footer class="notebook-footer">Keep it simple. Keep moving.</footer>
