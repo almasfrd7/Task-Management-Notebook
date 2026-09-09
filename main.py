@@ -12,6 +12,8 @@ app = FastAPI(title="Task Manager API")
 class Task(BaseModel):
     title: str
     description: str = ""
+    due_date: str = ""
+    due_time: str = ""
     completed: bool = False
 
 
@@ -54,6 +56,8 @@ def create_task(task: Task):
         "id": new_id,
         "title": task.title,
         "description": task.description,
+        "due_date": task.due_date,
+        "due_time": task.due_time,
         "completed": task.completed
     }
 
@@ -71,6 +75,8 @@ def update_task(task_id: int, task_data: Task):
 
             task["title"] = task_data.title
             task["description"] = task_data.description
+            task["due_date"] = task_data.due_date
+            task["due_time"] = task_data.due_time
             task["completed"] = task_data.completed
 
             return task

@@ -42,13 +42,15 @@ function displayTasks(tasks) {
                     ${task.description}
                 </p>
 
+                ${formatSchedule(task.due_date, task.due_time)}
+
             </div>
 
             <div class="actions">
 
                 <button
                     class="complete-btn"
-                    onclick="toggleTask(${task.id}, '${escapeQuotes(task.title)}', '${escapeQuotes(task.description)}', ${task.completed})"
+                    onclick="toggleTask(${task.id}, '${escapeQuotes(task.title)}', '${escapeQuotes(task.description)}', '${escapeQuotes(task.due_date || "")}', '${escapeQuotes(task.due_time || "")}', ${task.completed})"
                 >
                     ${task.completed ? "Undo" : "Complete"}
                 </button>
@@ -76,6 +78,8 @@ async function addTask() {
 
     const title = document.getElementById("title").value;
     const description = document.getElementById("description").value;
+    const dueDate = document.getElementById("dueDate").value;
+    const dueTime = document.getElementById("dueTime").value;
 
     if (title.trim() === "") {
 
@@ -89,6 +93,10 @@ async function addTask() {
         title: title,
 
         description: description,
+
+        due_date: dueDate,
+
+        due_time: dueTime,
 
         completed: false
     };
@@ -109,6 +117,8 @@ async function addTask() {
     document.getElementById("title").value = "";
 
     document.getElementById("description").value = "";
+    document.getElementById("dueDate").value = "";
+    document.getElementById("dueTime").value = "";
 
 
     loadTasks();
@@ -123,6 +133,8 @@ async function toggleTask(
     id,
     title,
     description,
+    dueDate,
+    dueTime,
     completed
 ) {
 
@@ -139,6 +151,10 @@ async function toggleTask(
             title: title,
 
             description: description,
+
+            due_date: dueDate,
+
+            due_time: dueTime,
 
             completed: !completed
         })
@@ -174,6 +190,31 @@ function escapeQuotes(text) {
     return text
         .replace(/'/g, "\\'")
         .replace(/"/g, '\\"');
+}
+
+
+function formatSchedule(date, time) {
+
+    if (!date && !time) {
+        return "";
+    }
+
+    const dateText = date
+        ? new Date(`${date}T00:00:00`).toLocaleDateString(undefined, {
+            month: "short",
+            day: "numeric",
+            year: "numeric"
+        })
+        : "No date";
+
+    const timeText = time
+        ? new Date(`1970-01-01T${time}`).toLocaleTimeString(undefined, {
+            hour: "numeric",
+            minute: "2-digit"
+        })
+        : "Any time";
+
+    return `<span class="schedule">${dateText} · ${timeText}</span>`;
 }
 
 
